@@ -1,11 +1,7 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
-  return (
-    <div className="min-h-screen w-full">
-      <span className="w-full text-5xl font-bold">Hello world</span>
-    </div>
-  );
-};
+  return <div className="min-h-screen w-full"></div>
+}
 
-export default Home;
+export default Home
