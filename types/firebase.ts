@@ -39,6 +39,7 @@ export interface IStudent extends ICommon {
 }
 
 export interface IClass extends ICommon {
+  name: string
   teacher_id: TId
   student_ids: TId[]
   daily_booking_ids: TId[]

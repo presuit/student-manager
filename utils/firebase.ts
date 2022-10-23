@@ -13,9 +13,9 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const fbAuth = getAuth(app)
+export const fbAuth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
-const fbDb = getFirestore(app)
+export const fbDb = getFirestore(app)
 
 export async function loginWithGoogle() {
   return signInWithPopup(fbAuth, googleProvider)
