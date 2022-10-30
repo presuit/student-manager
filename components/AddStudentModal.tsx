@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IStudent, IStudentParent, IStudentSchool } from '../types/firebase'
 import { createCollectionData, getCollection, updateCollectionData } from '../utils/firebase'
+import StudentSelect from './StudentSelect'
 
 interface IForm {
   name: string
@@ -46,7 +47,7 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
       id: '',
       is_academian: data.isAcademian === 'true' ? true : false,
       name: data.name,
-      parent: _dataParent,
+      parent: [_dataParent],
       phone_number: data.phoneNumber,
       prev_semester_score: 0,
       school: _dataSchool,
@@ -94,7 +95,7 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
           <div className="absolute flex w-full max-w-screen-lg gap-5 rounded-md bg-zinc-100 p-5">
             <section className="h-[80vh] w-full flex-1 space-y-3 overflow-auto rounded-md bg-zinc-200 p-5">
               <h2 className="text-2xl font-bold">직접 입력</h2>
-              <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-5">
+              <form autoComplete="off" onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-5">
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-zinc-500">이름</span>
                   <input
@@ -193,6 +194,7 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
                     />
                   </label>
                 </div>
+
                 <div className="flex w-full flex-col gap-1">
                   <span className="text-zinc-500">재학생 여부</span>
                   <div className="flex w-full justify-center gap-10">
@@ -224,8 +226,9 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
                 <input type={'submit'} value={'생성하기'} className={'w-full cursor-pointer rounded-md bg-rose-500 p-3 text-white'} />
               </form>
             </section>
-            <section className="rounded-md bg-zinc-200 p-5">
-              <h2 className="text-2xl font-bold">학생 선택</h2>
+            <section className="max-w-[200px] overflow-auto rounded-md bg-zinc-200 p-5">
+              <h2 className="pb-3 text-2xl font-bold">학생 선택</h2>
+              <StudentSelect setOpen={setOpen} classId={classId} />
             </section>
           </div>
         </div>

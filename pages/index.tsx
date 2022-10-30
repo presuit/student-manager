@@ -41,7 +41,10 @@ const Home: NextPage = () => {
           const container: IClass[] = []
           docs.forEach(doc => {
             if (doc.exists()) {
-              container.push(doc.data() as IClass)
+              const data = doc.data() as IClass
+              if (data.teacher_id === user.uid) {
+                container.push(data)
+              }
             }
           })
           setClasses(container)
@@ -66,7 +69,7 @@ const Home: NextPage = () => {
         <>
           <main className="w-full p-5 pb-20">
             <div className="w-full overflow-hidden rounded-md p-5">
-              <h2 className="rounded-md bg-zinc-100 p-3 text-2xl font-bold text-zinc-800 shadow-md">반갑습니다 {fsUser?.name}님</h2>
+              {/* <h2 className="rounded-md bg-zinc-100 p-3 text-2xl font-bold text-zinc-800 shadow-md">반갑습니다 {fsUser?.name}님</h2> */}
               <ul className="mt-5 grid w-full grid-cols-4 gap-5 rounded-2xl bg-zinc-100 p-5 pb-20 pt-10 shadow-md">
                 {classes.map(item => {
                   return (

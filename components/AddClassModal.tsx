@@ -59,7 +59,7 @@ const AddClassModal = () => {
         <div className="fixed top-0 left-0 flex h-screen w-full items-center justify-center">
           <div onClick={() => setOpen(false)} className="h-full w-full cursor-pointer bg-black bg-opacity-50 backdrop-blur-sm" />
           <div className="absolute w-full max-w-screen-sm rounded-md bg-white">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex h-full w-full flex-col items-center justify-start gap-5 p-10">
+            <form autoComplete="off" onSubmit={handleSubmit(onSubmit)} className="flex h-full w-full flex-col items-center justify-start gap-5 p-10">
               <input
                 {...register('name', { required: true })}
                 required

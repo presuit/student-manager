@@ -32,7 +32,7 @@ export interface IStudent extends ICommon {
   phone_number: string
   address: string
   school: IStudentSchool
-  parent: IStudentParent
+  parent: IStudentParent[]
   prev_semester_score: number
   is_academian: boolean
   class_ids: TId[]
@@ -56,16 +56,12 @@ export interface IBookInfoStudent {
   name: string
 }
 
-export interface IBookInfoHomework {
-  total: number
-  current: number
-}
-
 export interface IBookInfo extends ICommon {
   daily_booking_id: TId
+  type: string
   student: IBookInfoStudent
   is_attend: boolean
   attitude_score: number
   test_score: number
-  homework: IBookInfoHomework
+  homework_score: number
 }
