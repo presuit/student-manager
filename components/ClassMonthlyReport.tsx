@@ -1,6 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { getDocs, query, where } from 'firebase/firestore'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IBookInfo, IDailyBooking, IStudent } from '../types/firebase'
 import { getCollection } from '../utils/firebase'
@@ -39,8 +38,6 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
       setMonthBooks([...container])
     }
   }
-
-  console.log(monthBooks)
 
   const getSelectedStudentMonthBooks = () => {
     const container: Record<number, IMonthData[]> = {}
@@ -114,11 +111,11 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
   }, [selectedStudent])
 
   useEffect(() => {
-    if (monthBooks.length > 0) {
-      getSelectedStudentMonthBooks()
-    }
+    getSelectedStudentMonthBooks()
     setLoading(false)
   }, [monthBooks])
+
+  console.log(monthBooks)
 
   return (
     <>
@@ -143,7 +140,7 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
       {open && (
         <aside className="fixed top-0 left-0 z-10 h-screen w-full">
           <div onClick={() => setOpen(false)} className="h-full w-full cursor-pointer bg-black bg-opacity-50" />
-          <main className="absolute top-1/2 left-1/2 flex w-full max-w-screen-xl -translate-y-1/2 -translate-x-1/2 flex-col gap-5">
+          <main className="absolute top-1/2 left-1/2 flex w-full max-w-screen-2xl -translate-y-1/2 -translate-x-1/2 flex-col gap-5">
             <div className={'flex w-full gap-5 overflow-auto rounded-md p-5 pl-0'}>
               {[...students].map(student => (
                 <div
@@ -165,7 +162,7 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                   <div className={'w-full border-b border-zinc-300 bg-zinc-100 p-5 text-2xl font-bold text-black'}>
                     {date.format('YYYY[년] MM[월]')} <strong className={'text-teal-500'}>{selectedStudent?.name}</strong>
                   </div>
-                  <div className="flex flex-1">
+                  <div className="flex w-full flex-1">
                     <div className="grid shrink-0 grid-rows-6 place-items-center bg-white p-3">
                       <div></div>
                       <div>과목명</div>
@@ -180,7 +177,7 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                             return selectedStudentMonthBooks[+key].map(item => (
                               <div
                                 key={item.bookInfo.id}
-                                className="grid shrink-0 grid-rows-6 place-items-center p-3 odd:bg-zinc-100 even:bg-zinc-200"
+                                className="grid flex-1 grid-rows-6 place-items-center whitespace-nowrap p-3 odd:bg-zinc-100 even:bg-zinc-200"
                               >
                                 <div>{key}</div>
                                 <div>{item.bookInfo.type}</div>
@@ -192,7 +189,10 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                             ))
                           } else {
                             return (
-                              <div key={key} className="grid shrink-0 grid-rows-6 place-items-center p-3 odd:bg-zinc-100 even:bg-zinc-200">
+                              <div
+                                key={key}
+                                className="grid flex-1 grid-rows-6 place-items-center whitespace-nowrap p-3 odd:bg-zinc-100 even:bg-zinc-200"
+                              >
                                 <div>{key}</div>
                                 <div>-</div>
                                 <div>-</div>
@@ -204,7 +204,10 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                           }
                         })
                       : Array.from({ length: dayjs(date).daysInMonth() }).map((_, i) => (
-                          <div key={i} className="grid shrink-0 grid-rows-6 place-items-center p-3 odd:bg-zinc-100 even:bg-zinc-200">
+                          <div
+                            key={i}
+                            className="grid flex-1 shrink-0 grid-rows-6 place-items-center whitespace-nowrap p-3 odd:bg-zinc-100 even:bg-zinc-200"
+                          >
                             <div>{i + 1}</div>
                             <div>-</div>
                             <div>-</div>
@@ -214,7 +217,7 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                           </div>
                         ))}
                     {selectedStudentMonthBooks ? (
-                      <div className="grid shrink-0 grid-rows-6 place-items-center  bg-teal-500 p-3 px-5 text-white">
+                      <div className="grid shrink-0 grid-rows-6 place-items-center whitespace-nowrap  bg-teal-500 p-3 px-5 text-white">
                         <div>평균</div>
                         <div></div>
                         <div>{getAvg('attend', selectedStudentMonthBooks)}</div>
@@ -223,7 +226,7 @@ const ClassMonthlyReport = ({ students, date, dailyBookings }: IProps) => {
                         <div>{getAvg('testScore', selectedStudentMonthBooks)}</div>
                       </div>
                     ) : (
-                      <div className="grid shrink-0 grid-rows-6 place-items-center  bg-teal-500 p-3 px-5 text-white">
+                      <div className="grid shrink-0 grid-rows-6 place-items-center whitespace-nowrap bg-teal-500 p-3 px-5 text-white">
                         <div>평균</div>
                         <div>-</div>
                         <div>-</div>

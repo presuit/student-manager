@@ -17,6 +17,9 @@ interface IForm {
   parentName: string
   parentJob: string
   parentPhoneNumber: string
+  parentName2: string
+  parentJob2: string
+  parentPhoneNumber2: string
   isAcademian: string
 }
 
@@ -39,6 +42,12 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
       job: data.parentJob,
       phone_number: data.parentPhoneNumber,
     }
+    const _dataParent2: IStudentParent = {
+      name: data.parentName2,
+      job: data.parentJob2,
+      phone_number: data.parentPhoneNumber2,
+    }
+
     const _data: IStudent = {
       address: data.address,
       birth_date: data.birthDate,
@@ -47,7 +56,7 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
       id: '',
       is_academian: data.isAcademian === 'true' ? true : false,
       name: data.name,
-      parent: [_dataParent],
+      parent: [_dataParent, _dataParent2],
       phone_number: data.phoneNumber,
       prev_semester_score: 0,
       school: _dataSchool,
@@ -194,6 +203,35 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
                     />
                   </label>
                 </div>
+                <div className="flex w-full gap-3">
+                  <label className="flex w-full flex-1 flex-col gap-1">
+                    <span className="text-zinc-500">부모님 성함</span>
+                    <input
+                      required
+                      type={'text'}
+                      {...register('parentName2', { required: true })}
+                      className="w-full rounded-md border border-zinc-300 bg-zinc-100 p-3 outline-none focus:border-rose-500"
+                    />
+                  </label>
+                  <label className="flex w-full flex-1 flex-col gap-1">
+                    <span className="text-zinc-500">부모님 직업</span>
+                    <input
+                      required
+                      type={'text'}
+                      {...register('parentJob2', { required: true })}
+                      className="w-full rounded-md border border-zinc-300 bg-zinc-100 p-3 outline-none focus:border-rose-500"
+                    />
+                  </label>
+                  <label className="flex w-full flex-1 flex-col gap-1">
+                    <span className="text-zinc-500">부모님 전화번호</span>
+                    <input
+                      required
+                      type={'text'}
+                      {...register('parentPhoneNumber2', { required: true, min: 1 })}
+                      className="w-full rounded-md border border-zinc-300 bg-zinc-100 p-3 outline-none focus:border-rose-500"
+                    />
+                  </label>
+                </div>
 
                 <div className="flex w-full flex-col gap-1">
                   <span className="text-zinc-500">재학생 여부</span>
@@ -226,10 +264,10 @@ const ClassAddStudentModal: React.FC<IProps> = ({ classId }) => {
                 <input type={'submit'} value={'생성하기'} className={'w-full cursor-pointer rounded-md bg-rose-500 p-3 text-white'} />
               </form>
             </section>
-            <section className="max-w-[200px] overflow-auto rounded-md bg-zinc-200 p-5">
+            {/* <section className="max-w-[200px] overflow-auto rounded-md bg-zinc-200 p-5">
               <h2 className="pb-3 text-2xl font-bold">학생 선택</h2>
               <StudentSelect setOpen={setOpen} classId={classId} />
-            </section>
+            </section> */}
           </div>
         </div>
       )}

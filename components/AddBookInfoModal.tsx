@@ -135,21 +135,27 @@ const AddBookInfoModal = ({ setModalOpen, bookingId, refetch }: IProps) => {
           </div>
           <input
             required
-            {...register('attend_score', { required: true })}
+            min={0}
+            max={5}
+            {...register('attend_score', { required: true, min: 0, max: 5 })}
             className={'w-full rounded-md border border-zinc-300 p-3 outline-none'}
             type={'number'}
             placeholder={'수업 태도'}
           />
           <input
             required
-            {...register('test_score', { required: true })}
+            min={0}
+            max={100}
+            {...register('test_score', { required: true, min: 0, max: 100 })}
             className={'w-full rounded-md border border-zinc-300 p-3 outline-none'}
             type={'number'}
             placeholder={'테스트 점수'}
           />
           <input
             required
-            {...register('homework_score', { required: true })}
+            min={0}
+            max={100}
+            {...register('homework_score', { required: true, min: 0, max: 100 })}
             className={'w-full rounded-md border border-zinc-300 p-3 outline-none'}
             type={'number'}
             placeholder={'과제 점수'}

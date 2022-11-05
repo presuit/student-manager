@@ -28,7 +28,7 @@ const ClassStudent = ({ data, classInfo }: IProps) => {
     }
   }, [])
 
-  console.log(modalOpen)
+  console.log(data.parent)
 
   return (
     <>
@@ -80,6 +80,16 @@ const ClassStudent = ({ data, classInfo }: IProps) => {
             <div className={'inline-flex  rounded-md border border-zinc-300 bg-zinc-100'}>
               <span className={'border-r border-zinc-300 p-3 text-lg font-medium'}>재학생 여부</span>
               <span className="p-3">{data.is_academian ? 'Y' : 'N'}</span>
+            </div>
+            <div className="relative space-y-3 rounded-md border border-zinc-300 bg-zinc-100 p-5">
+              <span className="absolute top-0 left-0 rounded-md bg-zinc-500 p-1 text-xs font-medium text-white">부모님 정보</span>
+              {data.parent.map(item => (
+                <div className={'flex items-center gap-5 rounded-md border border-zinc-200 bg-white p-3'} key={item.phone_number}>
+                  <span>{item.name}</span>
+                  <span>{item.job}</span>
+                  <span>{item.phone_number}</span>
+                </div>
+              ))}
             </div>
           </main>
         </aside>
